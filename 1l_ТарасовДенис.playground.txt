@@ -1,0 +1,62 @@
+import Foundation
+
+// первое задание.
+
+let a : Double = 3.2
+let b : Double = -7.8
+let c : Double  = 1
+var d = Double()
+
+d = b * b - 4 * a * c
+
+if d > 0 {
+    var x1 = Double()
+    var x2 = Double()
+    x1 = (-b - sqrt(d)) / (2 * a)
+    x2 = (-b + sqrt(d)) / (2 * a)
+    print("Корни уравнения x1 = \(x1) , x2 = \(x2)")
+}else if d == 0 {
+    var x = Double()
+    x = -b / (2 * a)
+    print("Уравнение имеет единственный корень x = \(x) ")
+}else {
+    print("Уравнение не имеет действительных корней!")
+}
+
+//второе задание
+
+let catet1 : Double = 5.4
+let catet2 : Double = 2.1
+var s = Double() // площадь
+var p = Double() // периметр
+var h = Double() // гипотенуза
+
+s = (catet1 * catet2) / 2
+h = sqrt((catet1 * catet1) + (catet2 * catet2))
+p = catet1 + catet2 + h
+
+print("Площадь треугольника = \(s) , периметр = \(p) , гипотенуза = \(p)")
+
+// третье задание
+
+var deposit : Double = 12000
+var year : Double = 1
+let proc : Double = 10
+
+while year <= 5 {
+    deposit = deposit + deposit * proc / 100
+    year += 1
+}
+
+print("Сумма через 5 лет = \(deposit)")
+
+
+
+
+
+
+
+
+
+
+
