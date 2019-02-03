@@ -1,0 +1,82 @@
+import Foundation
+
+//задание 1
+
+func oddNumber (a : [Int])->[Int]{
+    var end = [Int]()
+    for i in a {
+        if i % 2 == 0 {
+            continue
+
+        }
+    end.append(i)
+
+    }
+    return end
+
+}
+
+
+//задание 2
+
+func division3 (a : [Int])->[Int]{
+    var end = [Int]()
+    for i in a {
+        if i % 7 == 3{
+            end.append(i)
+
+        }
+
+    }
+    return end
+
+}
+
+
+
+//задание 3
+
+func array100 (a : [Int])->[Int]{
+    var end = [Int]()
+    for a in 0...100{
+        end.append(a)
+
+    }
+    return end
+}
+
+
+// задание 4
+
+func deletEvenAnd3 (a : [Int])->[Int]{
+    var end = [Int]()
+    for i in a {
+        if i % 2 == 0 {
+            remove([0])
+        }else if i % 7 == 3 {
+            remove([0])
+        }else {
+            end.append(i)
+        }
+
+
+    }
+    return end
+
+}
+
+// проверяю
+
+var newNumber = [Int]()
+
+let number = (array100(a: newNumber))
+
+print(number)
+
+print(division3(a:number))
+
+print(oddNumber(a: number))
+
+let delet = deletEvenAnd3(a: number)
+
+print(delet)
