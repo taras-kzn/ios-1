@@ -1,0 +1,79 @@
+import Foundation
+
+
+enum Window {
+    case open , close
+}
+
+enum FulledVolumeLug {
+    case immerse , upload
+}
+
+
+
+
+struct car {
+    let markAvto : String
+    let year : Int
+    let volumeLug : Double
+    let colorBody : String
+    var engine : Bool
+    var window : Window
+    var fulledVolumeLug : FulledVolumeLug
+
+    var info : String {
+        get {
+            return markAvto + " " + "\(year)" + " " + "\(engine)"
+        }
+    }
+
+    mutating func openWindow(){
+        self.window = .open
+    }
+
+    mutating func closeWindow(){
+        self.window = .close
+    }
+
+    mutating func startStopEngine(){
+        engine  = !engine
+    }
+
+
+
+    mutating func immerseLug(){
+        self.fulledVolumeLug = .immerse
+    }
+
+    mutating func upLoadLug(){
+        self.fulledVolumeLug = .upload
+    }
+
+
+
+    init (markAvto : String , year : Int , volumeLug : Double ,colorBody : String , window : Window) {
+        engine = false
+        fulledVolumeLug = FulledVolumeLug.immerse
+
+        self.markAvto = markAvto
+        self.year = year
+        self.volumeLug = volumeLug
+        self.window = window
+        self.colorBody = colorBody
+
+
+    }
+
+
+
+
+}
+
+
+var audi = car.init(markAvto: "audi", year: 2018, volumeLug: 240, colorBody: "Black", window: .close)
+
+audi.startStopEngine()
+
+
+
+print(audi.info)
