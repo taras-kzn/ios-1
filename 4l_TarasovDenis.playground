@@ -1,0 +1,167 @@
+import Foundation
+
+enum Color {
+    case black
+    case blue
+    case white
+}
+
+
+class Car {
+    let markaAvto : String
+    var model : String
+    let year : Int
+    let colorBody : Color
+    var engine : Double
+
+
+    var info : String {
+        get {
+            return "\(markaAvto)" + " " + "\(model)" + " " + "\(year)" + " " + "\(engine)" + " " + "\(colorBody)"
+        }
+    }
+
+
+    init (markaAvto : String , model : String, year : Int ,colorBody : Color, engine : Double) {
+
+        self.year = year
+        self.colorBody = colorBody
+        self.engine = engine
+        self.model = model
+        self.markaAvto = markaAvto
+
+
+
+    }
+
+    func information() {
+        print ("ok")
+    }
+}
+
+
+enum TransmissionOperation {
+    case sport
+    case standart
+}
+
+enum WheelMode {
+    case sport
+    case standart
+}
+
+class SportCar : Car{
+
+
+    var wheel : Bool
+    var transmission : Bool
+
+
+    static var carCount = 0
+
+    init ( markaAvto : String , model : String, year : Int ,colorBody : Color, engine : Double , transmission : Bool , wheel : Bool){
+        self.transmission = transmission
+        self.wheel = wheel
+        super.init(markaAvto : markaAvto ,model: model, year: year, colorBody: colorBody, engine: engine)
+
+        SportCar.carCount += 1
+
+    }
+
+    deinit {
+        SportCar.carCount -= 1
+    }
+
+    static func countInfo (){
+        print("всего существуют \(self.carCount) авто")
+    }
+
+
+    func transmissonOperation (operation: TransmissionOperation) {
+        switch operation {
+        case .sport:
+            transmission = false
+        case .standart:
+            transmission = true
+        }
+    }
+
+    func wheelOperation(operation: WheelMode){
+        switch operation {
+            case .sport:
+                wheel = false
+            case .standart:
+                wheel = true
+        }
+    }
+
+    override func information() {
+
+        print("Спортивная версия авто  \(self.info)" )
+    }
+
+
+}
+
+var audi = SportCar.init(markaAvto: "Audi", model: "A4RS", year: 2019, colorBody: .blue, engine: 1.8, transmission: true, wheel: true)
+
+var bmv = SportCar(markaAvto: "bmv", model: "M3", year: 2018, colorBody: .black, engine: 2.0, transmission: true, wheel: true)
+
+
+audi.information()
+bmv.transmissonOperation(operation: .sport)
+print("Всего существуют \(SportCar.carCount)  автомобиля")
+
+
+enum UnloadingLoading{
+    case unloading
+    case loading
+}
+
+
+
+
+class TrunKCar : Car {
+
+    var bodyVolume : Int
+    var loadingCapacity : Int
+    var unloadingLoading : Bool
+    var additionalInfo : String{
+        get{
+            return "\(bodyVolume)" + " " + "\(loadingCapacity)"
+        }
+    }
+
+    init(markaAvto: String, model: String, year: Int, colorBody: Color, engine: Double , bodyVolume : Int , loadingCapacity : Int ,  unloadingLoading : Bool) {
+        self.bodyVolume = bodyVolume
+        self.loadingCapacity = loadingCapacity
+        self.unloadingLoading = unloadingLoading
+        super.init(markaAvto: markaAvto, model: model, year: year, colorBody: colorBody, engine: engine)
+
+    }
+
+    func loading(operation: UnloadingLoading) {
+
+        switch operation {
+            case .loading:
+                unloadingLoading = false
+                print("Погрузка песка")
+            case .unloading:
+                unloadingLoading = true
+                print ("Разгрузка песка")
+
+        }
+
+    }
+
+    override func information() {
+        print("Грузовой автомобтль \(self.info) \(additionalInfo)" )
+    }
+
+
+}
+
+var kamaz = TrunKCar(markaAvto: "kamaz", model: "639293", year: 2017, colorBody: .black, engine: 1.8, bodyVolume: 6, loadingCapacity: 10, unloadingLoading: true)
+
+kamaz.information()
+kamaz.loading(operation: .loading)
