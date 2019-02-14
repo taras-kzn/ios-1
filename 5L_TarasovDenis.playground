@@ -1,0 +1,206 @@
+
+import Foundation
+
+enum Color {
+    case black
+    case blue
+    case white
+}
+
+enum Window {
+    case open
+    case close
+}
+
+enum EngineStartStop{
+    case start
+    case stop
+}
+
+
+
+protocol Car {
+    var markaAvto : String {get set}
+    var model : String {get set}
+    var year : Int {get set}
+    var colorBody : Color {get}
+    var engine : Double {get set}
+    var window : Bool {get set}
+    var engineStartStop : Bool {get set}
+
+    func action()
+
+}
+
+extension Car {
+
+    mutating func windowUp (operation : Window){
+        switch operation {
+        case .open:
+            self.window = false
+        case .close:
+            self.window = true
+
+        }
+    }
+
+    mutating func engineStartStop (operation : EngineStartStop){
+        switch operation {
+        case .start:
+            self.engineStartStop = false
+        case .stop:
+            self.engineStartStop = true
+        }
+    }
+
+}
+
+enum WhellMode{
+    case sport
+    case standart
+}
+
+enum TransmissionMode{
+    case sport
+    case drive
+}
+
+
+class SportCar : Car {
+
+
+
+    var markaAvto : String
+    var model : String
+    var year : Int
+    var colorBody : Color
+    var engine : Double
+    var window : Bool
+    var engineStartStop : Bool
+
+    var wheel : Bool
+    var transmission : Bool
+
+    init (markaAvto : String , model : String , year : Int , colorBody : Color , engine : Double , window : Bool , engineStartStop : Bool , wheel : Bool , transmission : Bool) {
+
+        self.markaAvto = markaAvto
+        self.model = model
+        self.year = year
+        self.colorBody = colorBody
+        self.engine = engine
+        self.window = window
+        self.engineStartStop = engineStartStop
+        self.wheel = wheel
+        self.transmission = transmission
+
+
+    }
+
+    func action() {
+        print ("Спортивная версия \(self.markaAvto) " + " " + "\(self.model)" + " " + "\(self.engine)" + " " +  "\(self.year)")
+    }
+
+    func wheelMode(operation : WhellMode) {
+        switch operation {
+        case .sport:
+            self.wheel = false
+        case .standart:
+            self.wheel = true
+        }
+    }
+
+    func transmissionMode(operation: TransmissionMode) {
+        switch operation {
+        case .sport:
+            self.transmission = false
+        case .drive:
+            self.transmission = true
+        }
+    }
+
+
+
+}
+
+extension SportCar : CustomStringConvertible{
+    var description: String{
+        return "(Спортиный автомобиль \(self.markaAvto) модель \(self.model) \(self.year) года , обьем двигателя \(self.engine) ) "
+    }
+}
+
+
+
+enum HandBrake{
+    case off
+    case on
+}
+
+class TrunkCar : Car {
+
+    var markaAvto : String
+    var model : String
+    var year : Int
+    var colorBody : Color
+    var engine : Double
+    var window : Bool
+    var engineStartStop : Bool
+
+    var bodyVolume : Int
+    var loadingCapacity : Int
+    var handBrake : HandBrake
+    var speed : Int
+    //Авто стояночный тормоз
+
+    init (markaAvto : String , model : String , year : Int , colorBody : Color , engine : Double , window : Bool , engineStarStop : Bool , bodyVolume : Int , loadingCapacity : Int , speed : Int , handBrake : HandBrake) {
+        self.markaAvto = markaAvto
+        self.model = model
+        self.year = year
+        self.colorBody = colorBody
+        self.engine = engine
+        self.window = window
+        self.engineStartStop = engineStarStop
+        self.bodyVolume = bodyVolume
+        self.loadingCapacity = loadingCapacity
+        self.speed = speed
+        self.handBrake = handBrake
+
+
+
+
+    }
+
+    func action() {
+        if speed > 0 {
+            handBrake = .off
+            print("Авто стояночный тормоз отключен")
+        } else {
+            handBrake = .on
+            print("Авто стояночный тормоз включен")
+
+        }
+
+    }
+
+
+}
+
+extension TrunkCar : CustomStringConvertible {
+    var description: String{
+        return "(Грузовой автомобиль марки \(self.markaAvto) \(self.year) года с обЪемом цестерны \(self.bodyVolume) кубов ,и сразрешенной максимальной массой \(self.loadingCapacity) тон.На данный момент скорость авто \(self.speed) км. авто стояночный тормоз \(self.handBrake) ) "
+    }
+
+}
+
+var audi = SportCar(markaAvto: "Audi", model: "A4 Rs", year: 2019, colorBody: .blue, engine: 1.8, window: true, engineStartStop: true, wheel: true, transmission: true)
+
+
+audi.engineStartStop(operation: .start)
+audi.wheelMode(operation: .sport)
+print(audi)
+
+var kamaz = TrunkCar(markaAvto: "Kamaz", model: "2341", year: 2018, colorBody: .white, engine: 2.5, window: false, engineStarStop: false, bodyVolume: 6, loadingCapacity: 10, speed: 20, handBrake: .on)
+
+kamaz.engineStartStop(operation: .start)
+kamaz.windowUp(operation: .close)
+kamaz.action()
+print(kamaz)
