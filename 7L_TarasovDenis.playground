@@ -1,0 +1,69 @@
+import Foundation
+
+
+enum InternetShopAudiError : Error {
+    case invalidSelection
+    case outOfStock
+    case insufficientFunds(coinsNeeded : Int)
+}
+
+struct Audi{
+    var price : Int
+    var count : Int
+    var model : Model
+}
+
+struct Model{
+    let name : String
+}
+
+
+class InternetShopAudi{
+
+    var modelCar = [
+        "A4" : Audi(price: 1966000, count: 4, model : Model(name: "A4")),
+        "A7" : Audi(price: 2966000, count: 2, model: Model(name: "A7")),
+        "TT" : Audi(price: 3122000, count: 0, model: Model(name: "TT")),
+        "A3" : Audi(price: 1456000, count: 3, model: Model(name: "A3"))
+    ]
+
+    var coinsDeposit = 0
+
+    func vend (audiModel name : String) throws ->Model{
+        guard let audi = modelCar[name] else {
+            throw InternetShopAudiError.invalidSelection
+        }
+        guard audi.count > 0 else {
+            throw InternetShopAudiError.outOfStock
+        }
+        guard audi.price <= coinsDeposit else {
+            throw InternetShopAudiError.insufficientFunds(coinsNeeded: audi.price - coinsDeposit)
+        }
+
+        coinsDeposit -= audi.price
+        var newAudi = audi
+        newAudi.count -= 1
+        modelCar[name] = newAudi
+        print("продано Audi \(name)")
+        return newAudi.model
+
+    }
+
+}
+
+let internetShop = InternetShopAudi()
+internetShop.coinsDeposit = 2000000
+
+
+
+do {
+    let sell1 = try internetShop.vend(audiModel: "TT")
+} catch InternetShopAudiError.invalidSelection {
+    print("такой модели машины нету")
+}catch InternetShopAudiError.outOfStock{
+    print("нету в наличие этой машины")
+}catch InternetShopAudiError.insufficientFunds(let coinsNeeded){
+    print("введенная сумма не достаточна.Необходимо добавить \(coinsNeeded) денег")
+}catch let error {
+    print(error.localizedDescription)
+}
