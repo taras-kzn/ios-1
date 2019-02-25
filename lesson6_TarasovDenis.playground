@@ -1,0 +1,47 @@
+import Foundation
+
+
+
+
+struct Queue <T>{
+    var elements = [T]()
+    mutating func push (element: T){
+        elements.append(element)
+    }
+    mutating func pull()-> T?{
+        if elements.count > 0{
+            return elements.removeFirst()
+        }else{
+            return nil
+        }
+    }
+    mutating func filter (condition:(T) -> Bool) ->[T]{
+        var newArray : [T] = []
+
+        for element in elements{
+            if condition(element){
+                newArray.append(element)
+            }
+        }
+        return newArray
+    }
+
+    subscript (index:Int)->T?{
+        return elements[index]
+
+    }
+
+
+}
+
+
+
+var car = [0,1]
+
+var carArray = Queue(elements: [])
+
+carArray.push(element: 1)
+carArray.push(element: 2)
+
+
+print(carArray)
